@@ -1,5 +1,5 @@
 #create your header obj
-$h=@{"X-Vault-Token"="YOUR TOKEN HERE "}
+$h=@{"X-Vault-Token"="< YOUR TOKEN HERE >"}
 $OUPath = "OU=WEB,OU=Stage, YOUR FULL OU PATH HERE "
 
 $res = Invoke-RestMethod -Method GET -H $h "https:// <YOUR VAULT URI> /v1/secret/ <YOUR VAULT PATH>"
