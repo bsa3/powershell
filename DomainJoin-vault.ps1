@@ -2,6 +2,9 @@
 $h=@{"X-Vault-Token"="< YOUR TOKEN HERE >"}
 $OUPath = "OU=WEB,OU=Stage, YOUR FULL OU PATH HERE "
 
+#To force TLS1.2 you can use this line:
+#[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 $res = Invoke-RestMethod -Method GET -H $h "https:// <YOUR VAULT URI> /v1/secret/ <YOUR VAULT PATH>"
 
 # Set DNS setting asumming you put them to your vault secret
