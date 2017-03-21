@@ -1,0 +1,10 @@
+#example get new relic server entity id
+
+$NEWRELIC_APIKEY='' 
+
+$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+$headers.Add("X-API-KEY", $NEWRELIC_APIKEY)
+### $response = curl 'https://api.newrelic.com/v2/servers.json' -H $headers #raw
+$response = Invoke-RestMethod -Uri "https://api.newrelic.com/v2/servers.json?filter[host]=$(hostname)" -H $headers
+nrentity_id=$(response.servers[0].id)
+$response.servers.id
