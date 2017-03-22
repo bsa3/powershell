@@ -2,26 +2,17 @@
 
 $NEWRELIC_APIKEY='' 
 
-$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-$headers.Add("X-API-KEY", $NEWRELIC_APIKEY)
-### $response = curl 'https://api.newrelic.com/v2/servers.json' -H $headers #raw
-$response = Invoke-RestMethod -Uri "https://api.newrelic.com/v2/servers.json?filter[host]=$(hostname)" -H $headers
-nrentity_id=$(response.servers[0].id)
-$response.servers.id
+$NEWRELIC_APIKEY='<see console>' 
+$Res=Invoke-RestMethod -Uri "https://api.newrelic.com/v2/servers.json?filter[host]=$(hostname)" -H @{"X-API-KEY"=$($NEWRELIC_APIKEY)}
+#  $Res.servers.id
 
+$url="https://api.newrelic.com/v2/alerts_entity_conditions/$($Res.servers.id).json"
 
-#example add server entity id to alert contition id  #cpu stg
-# curl -X PUT "https://api.newrelic.com/v2/alerts_entity_conditions/${entity_id}.json" \
-#     -H "X-Api-Key:${NEWRELIC_APIKEY}" -i \
-#     -H 'Content-Type: application/json' \
-#     -G -d "entity_type=Server&condition_id=${condition_id}"
-
+#add to cpu condition
 $nrdata = @{
-    "entity_type"="Server"
-    "condition_id"="<con id from policy>"
+    entity_type="Server"
+    condition_id="<id>"
 }
-$nrjson = $nrdata | ConvertTo-Json
 
-$url="https://api.newrelic.com/v2/alerts_entity_conditions/$($response.servers[0].id).json"
-$response = Invoke-RestMethod $url -Body $nrdata -H $headers -Method Put -ContentType 'application/json'
+$RP=Invoke-RestMethod -Method Put -Uri $url -Body $(ConvertTo-Json $nrdata) -H @{"X-API-KEY"=$($NEWRELIC_APIKEY)} -ContentType 'application/json'
 
