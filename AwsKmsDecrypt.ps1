@@ -35,6 +35,6 @@ function ConvertFrom-StreamToString{
 # Convert the decrypted stream to a strimg
 $DecryptedOutput = ConvertFrom-StreamToString -inputStream $DecryptedOutputStream.Plaintext
 
-Write-Host $DecryptedOutput
+Write-Output $DecryptedOutput
 
 #example: $secretArg=(powershell thisscript.ps1 xyzparams) ; powershell consumer.ps1 $secretArg ; $secretArg=""#clear the var
