@@ -37,4 +37,6 @@ $DecryptedOutput = ConvertFrom-StreamToString -inputStream $DecryptedOutputStrea
 
 Write-Output $DecryptedOutput
 
-#example: $secretArg=(powershell thisscript.ps1 xyzparams) ; powershell consumer.ps1 $secretArg ; $secretArg=""#clear the var
+#examples: thisscript.ps1 | yourscript.ps1 that accepts ValueFromPipeline param
+#or
+#$secretArg=(powershell thisscript.ps1 xyzparams) ; powershell consumer.ps1 $secretArg ; $secretArg=""#clear the var
